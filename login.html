@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login - MVGC</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center text-blue-700">Admin Login</h2>
+
+    <div id="error" class="text-red-600 mb-4 hidden"></div>
+
+    <form id="loginForm">
+      <label class="block mb-2 text-sm font-medium">Email</label>
+      <input type="email" id="email" required class="w-full p-2 border rounded mb-4"/>
+
+      <label class="block mb-2 text-sm font-medium">Password</label>
+      <input type="password" id="password" required class="w-full p-2 border rounded mb-6"/>
+
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+        Login
+      </button>
+    </form>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Add allowed admin emails
+    const allowedAdmins = [
+      "omartinsville106@gmail.com",
+      "temiosesemvgc@gmail.com"
+    ];
+
+    const loginForm = document.getElementById("loginForm");
+    const errorDiv = document.getElementById("error");
+
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          if (allowedAdmins.includes(user.email)) {
+            window.location.href = "admin.html";
+          } else {
+            auth.signOut();
+            showError("Access denied. You are not an authorized admin.");
+          }
+        })
+        .catch((error) => {
+          showError(error.message);
+        });
+    });
+
+    function showError(message) {
+      errorDiv.innerText = message;
+      errorDiv.classList.remove("hidden");
+    }
+
+    // Auto redirect if already signed in and allowed
+    auth.onAuthStateChanged((user) => {
+      if (user && allowedAdmins.includes(user.email)) {
+        window.location.href = "admin.html";
+      }
+    });
+  </script>
+</body>
+</html>
