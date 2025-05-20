@@ -34,7 +34,23 @@
     <div><span id="minutes">30</span><p class="text-sm text-black">Minutes</p></div>
     <div><span id="seconds">00</span><p class="text-sm text-black">Seconds</p></div>
   </div>
+<div id="daily-anchor" class="bg-blue-700 text-white py-2 px-4 overflow-hidden whitespace-nowrap">
+  <span id="anchor-text" class="inline-block animate-marquee">
+    ✨ Loading daily anchor...
+  </span>
+  <style>
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+.animate-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 15s linear infinite;
+}
+</style>
 
+</div>
   <!-- Daily Themes and Speakers -->
   <div class="grid md:grid-cols-3 gap-6 mt-8 text-left">
     <!-- Day 1 -->
@@ -101,6 +117,9 @@
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-analytics.js";
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -119,6 +138,38 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const db = firebase.firestore();
+  
+  // Format today's date as yyyy-mm-dd
+  const today = new Date().toISOString().split('T')[0];
+
+  // Fetch today's anchor from Firestore
+  db.collection("dailyAnchors").doc(today).get()
+    .then(doc => {
+      const span = document.getElementById('anchor-text');
+      if (doc.exists) {
+        span.textContent = doc.data().text;
+      } else {
+  db.collection("dailyAnchors").get().then(snapshot => {
+  const anchors = [];
+  snapshot.forEach(doc => {
+  anchors.push(doc.data().text);
+  }
+  );
+  if (anchors.length > 0) {
+  const randomAnchor = anchors[Math.floor(Math.random() * anchors.length)];
+  anchorTextEl.textContent = "✨ [From Archive] "
+ + randomAnchor;
+  } else {
+  anchorTextEl.textContent = "✨ No anchors available.";
+  }
+  });
+      }
+    })
+    .catch(error => {
+      console.error("Error fetching anchor:", error);
+      document.getElementById('anchor-text').textContent = "✨ Failed to load anchor.";
+    });
+</script>
 </script>
   
 
