@@ -103,48 +103,65 @@
     }, 1000);
   </script>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyA-b8o07OzvAp-WK50m2N6c47E7DknOakQ",
-      authDomain: "temiosesealagbede.firebaseapp.com",
-      projectId: "temiosesealagbede",
-      storageBucket: "temiosesealagbede.appspot.com",
-      messagingSenderId: "105174914045",
-      appId: "1:105174914045:web:5362ab4a7699b9eb02bf94",
-      measurementId: "G-F4M4J2QXB4"
-    };
+  <!-- REMOVE these -->
+<!--
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+-->
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+<!-- COMBINE daily anchor logic into the module script below -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, doc, getDoc, getDocs, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-    const today = new Date().toISOString().split('T')[0];
-    const anchorTextEl = document.getElementById('anchor-text');
+  const firebaseConfig = {
+    apiKey: "AIzaSyA-b8o07OzvAp-WK50m2N6c47E7DknOakQ",
+    authDomain: "temiosesealagbede.firebaseapp.com",
+    projectId: "temiosesealagbede",
+    storageBucket: "temiosesealagbede.appspot.com",
+    messagingSenderId: "105174914045",
+    appId: "1:105174914045:web:5362ab4a7699b9eb02bf94",
+    measurementId: "G-F4M4J2QXB4"
+  };
 
-    db.collection("dailyAnchors").doc(today).get()
-      .then(doc => {
-        if (doc.exists) {
-          anchorTextEl.textContent = "... " + doc.data().text;
-        } else {
-          db.collection("dailyAnchors").get().then(snapshot => {
-            const anchors = [];
-            snapshot.forEach(doc => anchors.push(doc.data().text));
-            if (anchors.length > 0) {
-              const randomAnchor = anchors[Math.floor(Math.random() * anchors.length)];
-              anchorTextEl.textContent = " [From Archive] " + randomAnchor;
-            } else {
-              anchorTextEl.textContent = " No anchors available.";
-            }
-          });
-        }
-      })
-      .catch(error => {
-        console.error("Error fetching anchor:", error);
-        anchorTextEl.textContent = " Failed to load anchor.";
-      });
-  </script>
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Daily Anchor
+  const today = new Date().toISOString().split('T')[0];
+  const anchorTextEl = document.getElementById('anchor-text');
+
+  const anchorDoc = await getDoc(doc(db, "dailyAnchors", today));
+  if (anchorDoc.exists()) {
+    anchorTextEl.textContent = "... " + anchorDoc.data().text;
+  } else {
+    const snapshot = await getDocs(collection(db, "dailyAnchors"));
+    const anchors = snapshot.docs.map(doc => doc.data().text);
+    if (anchors.length > 0) {
+      const randomAnchor = anchors[Math.floor(Math.random() * anchors.length)];
+      anchorTextEl.textContent = " [From Archive] " + randomAnchor;
+    } else {
+      anchorTextEl.textContent = " No anchors available.";
+    }
+  }
+
+  // Live Updates
+  const updatesRef = collection(db, "liveUpdates");
+  const q = query(updatesRef, orderBy("timestamp", "desc"));
+  const liveFeed = document.getElementById("live-feed");
+
+  onSnapshot(q, snapshot => {
+    liveFeed.innerHTML = "";
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const div = document.createElement("div");
+      div.className = "p-4 bg-gray-100 rounded shadow text-left";
+      div.innerHTML = `<strong>${new Date(data.timestamp.toDate()).toLocaleTimeString()}</strong><br>${data.text}`;
+      liveFeed.appendChild(div);
+    });
+  });
+</script>
+
 
   <!-- Footer -->
   <footer class="bg-white shadow-inner mt-12">
