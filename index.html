@@ -152,8 +152,8 @@
   }
 
   // Live Updates
-  const updatesRef = collection(db, "liveUpdates");
-  const q = query(updatesRef, orderBy("timestamp", "desc"));
+  const updatesContainer = collection(db, "liveUpdates");
+  const q = query(updatesContainer, orderBy("timestamp", "desc"));
   const liveFeed = document.getElementById("live-feed");
 
   onSnapshot(q, snapshot => {
