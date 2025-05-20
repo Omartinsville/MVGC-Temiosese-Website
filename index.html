@@ -14,7 +14,7 @@
     .animate-marquee {
       display: inline-block;
       white-space: nowrap;
-      animation: marquee 15s linear infinite;
+      animation: marquee 30s linear infinite;
     }
   </style>
 </head>
@@ -126,23 +126,23 @@
     db.collection("dailyAnchors").doc(today).get()
       .then(doc => {
         if (doc.exists) {
-          anchorTextEl.textContent = "✨ " + doc.data().text;
+          anchorTextEl.textContent = "... " + doc.data().text;
         } else {
           db.collection("dailyAnchors").get().then(snapshot => {
             const anchors = [];
             snapshot.forEach(doc => anchors.push(doc.data().text));
             if (anchors.length > 0) {
               const randomAnchor = anchors[Math.floor(Math.random() * anchors.length)];
-              anchorTextEl.textContent = "✨ [From Archive] " + randomAnchor;
+              anchorTextEl.textContent = " [From Archive] " + randomAnchor;
             } else {
-              anchorTextEl.textContent = "✨ No anchors available.";
+              anchorTextEl.textContent = " No anchors available.";
             }
           });
         }
       })
       .catch(error => {
         console.error("Error fetching anchor:", error);
-        anchorTextEl.textContent = "✨ Failed to load anchor.";
+        anchorTextEl.textContent = " Failed to load anchor.";
       });
   </script>
 
