@@ -200,6 +200,32 @@
         </div>
         <button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded hover:bg-blue-800">Submit Booking</button>
       </form>
+      <script>
+  document.getElementById("bookingForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+
+    try {
+      await firebase.firestore().collection("bookings").add({
+        name,
+        email,
+        date,
+        time,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      alert("Booking submitted successfully!");
+      this.reset();
+    } catch (error) {
+      alert("Error submitting booking: " + error.message);
+    }
+  });
+</script>
+
     </div>
   </section>
 
