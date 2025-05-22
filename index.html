@@ -23,24 +23,31 @@
 
   <!-- Navigation -->
   <nav class="bg-white shadow-md">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="home.html" class="text-2xl font-bold">Mountain of Victory Gospel Church Temi O Sese Alagbede</a>
-      <div class="space-x-6">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="home.html" class="text-xl sm:text-2xl font-bold">Mountain of Victory Gospel Church Temi O Sese Alagbede</a>
+      <button id="menu-toggle" class="sm:hidden text-blue-700 font-bold">☰</button>
+      <div id="menu" class="hidden sm:flex space-x-6">
         <a href="home.html" class="hover:text-blue-500">Home</a>
         <a href="about.html" class="hover:text-blue-500">About</a>
         <a href="sermons.html" class="hover:text-blue-500">Sermons</a>
         <a href="contact.html" class="hover:text-blue-500">Contact</a>
       </div>
     </div>
+    <div id="mobile-menu" class="sm:hidden px-4 pb-4 hidden">
+      <a href="home.html" class="block py-2 hover:text-blue-500">Home</a>
+      <a href="about.html" class="block py-2 hover:text-blue-500">About</a>
+      <a href="sermons.html" class="block py-2 hover:text-blue-500">Sermons</a>
+      <a href="contact.html" class="block py-2 hover:text-blue-500">Contact</a>
+    </div>
   </nav>
 
   <!-- Countdown Section -->
-  <section class="bg-blue-100 text-center p-6 rounded-lg shadow-md mb-8">
+  <section class="bg-blue-100 text-center p-6 rounded-lg shadow-md my-6 max-w-4xl mx-auto">
     <h2 class="text-2xl font-bold text-blue-800 mb-2">Countdown to Our 3-Day Power Packed Program!</h2>
     <p class="text-blue-700 mb-4">Join us from <strong>May 21 – May 24, 2025</strong> for 3 days of prayer, power, and prophetic impartation.</p>
 
     <!-- Countdown Timer -->
-    <div id="countdown" class="text-3xl font-bold text-red-600 flex justify-center space-x-6 mb-6">
+    <div id="countdown" class="text-3xl font-bold text-red-600 flex justify-center flex-wrap gap-6 mb-6">
       <div><span id="days">01</span><p class="text-sm text-black">Days</p></div>
       <div><span id="hours">08</span><p class="text-sm text-black">Hours</p></div>
       <div><span id="minutes">25</span><p class="text-sm text-black">Minutes</p></div>
@@ -48,19 +55,24 @@
     </div>
 
     <!-- Daily Anchor -->
-    <div id="daily-anchor" class="bg-blue-700 text-white py-2 px-4 overflow-hidden whitespace-nowrap">
+    <div id="daily-anchor" class="bg-blue-700 text-white py-2 px-4 overflow-hidden whitespace-nowrap rounded">
       <span id="anchor-text" class="inline-block animate-marquee">✨ Loading daily anchor...</span>
     </div>
 
     <!-- Themes and Speakers -->
- 
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 text-left">
+      <div class="bg-white p-4 rounded shadow text-center">
+        <img src="images/pasto-akin-akindele.jpg" alt="Pastor Akin Akindele" class="w-32 h-32 mx-auto rounded-full mb-3 shadow"/>
+        <h3 class="text-lg font-semibold text-blue-700">Day 1: May 21</h3>
+        <p class="text-gray-700"><strong>Theme:</strong> Breaking the Yoke of Delay</p>
+        <p class="text-gray-600"><strong>Speaker:</strong> Pastor Akin Akindele</p>
+      </div>
       <div class="bg-white p-4 rounded shadow text-center">
         <img src="images/james-janet.jpg" alt="Peter Olamiposi" class="w-32 h-32 mx-auto rounded-full mb-3 shadow"/>
         <h3 class="text-lg font-semibold text-blue-700">Day 2: May 22</h3>
         <p class="text-gray-700"><strong>Theme:</strong> Iyipada Fun Iselogo</p>
         <p class="text-gray-600"><strong>Speaker:</strong> Evangelist Peter Olamiposi</p>
       </div>
-
       <div class="bg-white p-4 rounded shadow text-center">
         <img src="images/prophetess-ishola.jpg" alt="Prophetess E. Ishola" class="w-32 h-32 mx-auto rounded-full mb-3 shadow"/>
         <h3 class="text-lg font-semibold text-blue-700">Day 3: May 23/24</h3>
@@ -68,14 +80,6 @@
         <p class="text-gray-600"><strong>Speaker:</strong> Prophetess E. Ishola</p>
       </div>
     </div>
-       <div class="grid md:grid-cols-3 gap-6 mt-8 text-left">
-      <div class="bg-white p-4 rounded shadow text-center">
-        <img src="images/pasto-akin-akindele.jpg" alt="Pastor Akin Akindele" class="w-32 h-32 mx-auto rounded-full mb-3 shadow"/>
-        <h3 class="text-lg font-semibold text-blue-700">Day 1: May 21</h3>
-        <p class="text-gray-700"><strong>Theme:</strong> Breaking the Yoke of Delay</p>
-        <p class="text-gray-600"><strong>Speaker:</strong> Pastor Akin Akindele</p>
-      </div>
-
 
     <!-- Buttons -->
     <div class="mt-8 space-x-4">
@@ -83,26 +87,26 @@
       <a href="registration.html" class="inline-block bg-blue-700 text-white px-6 py-2 rounded hover:bg-blue-800 font-semibold">Register Now</a>
     </div>
   </section>
- <div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
+
+  <!-- Live Updates -->
+  <div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
     <h2 class="text-2xl font-bold mb-4 text-center text-blue-700">📢 Live Updates</h2>
-    
     <div id="updatesContainer" class="space-y-4">
       <!-- Updates will be inserted here dynamically -->
     </div>
   </div>
+
   <!-- Countdown Script -->
   <script>
     const countdownDate = new Date("May 21, 2025 17:00:00").getTime();
     const updateCountdown = setInterval(() => {
       const now = new Date().getTime();
       const distance = countdownDate - now;
-
       if (distance < 0) {
         clearInterval(updateCountdown);
         document.getElementById("countdown").innerHTML = "The Program Has Started!";
         return;
       }
-
       document.getElementById("days").textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
       document.getElementById("hours").textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
       document.getElementById("minutes").textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
@@ -110,65 +114,61 @@
     }, 1000);
   </script>
 
-  <!-- REMOVE these -->
-<!--
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
--->
+  <!-- Firebase Logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, doc, getDoc, getDocs, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-<!-- COMBINE daily anchor logic into the module script below -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, collection, doc, getDoc, getDocs, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyA-b8o07OzvAp-WK50m2N6c47E7DknOakQ",
+      authDomain: "temiosesealagbede.firebaseapp.com",
+      projectId: "temiosesealagbede",
+      storageBucket: "temiosesealagbede.appspot.com",
+      messagingSenderId: "105174914045",
+      appId: "1:105174914045:web:5362ab4a7699b9eb02bf94",
+      measurementId: "G-F4M4J2QXB4"
+    };
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyA-b8o07OzvAp-WK50m2N6c47E7DknOakQ",
-    authDomain: "temiosesealagbede.firebaseapp.com",
-    projectId: "temiosesealagbede",
-    storageBucket: "temiosesealagbede.appspot.com",
-    messagingSenderId: "105174914045",
-    appId: "1:105174914045:web:5362ab4a7699b9eb02bf94",
-    measurementId: "G-F4M4J2QXB4"
-  };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+    // Daily Anchor
+    const today = new Date().toISOString().split('T')[0];
+    const anchorTextEl = document.getElementById('anchor-text');
 
-  // Daily Anchor
-  const today = new Date().toISOString().split('T')[0];
-  const anchorTextEl = document.getElementById('anchor-text');
-
-  const anchorDoc = await getDoc(doc(db, "dailyAnchors", today));
-  if (anchorDoc.exists()) {
-    anchorTextEl.textContent = "... " + anchorDoc.data().text;
-  } else {
-    const snapshot = await getDocs(collection(db, "dailyAnchors"));
-    const anchors = snapshot.docs.map(doc => doc.data().text);
-    if (anchors.length > 0) {
-      const randomAnchor = anchors[Math.floor(Math.random() * anchors.length)];
-      anchorTextEl.textContent = " [From Archive] " + randomAnchor;
+    const anchorDoc = await getDoc(doc(db, "dailyAnchors", today));
+    if (anchorDoc.exists()) {
+      anchorTextEl.textContent = "... " + anchorDoc.data().text;
     } else {
-      anchorTextEl.textContent = " No anchors available.";
+      const snapshot = await getDocs(collection(db, "dailyAnchors"));
+      const anchors = snapshot.docs.map(doc => doc.data().text);
+      anchorTextEl.textContent = anchors.length
+        ? "[From Archive] " + anchors[Math.floor(Math.random() * anchors.length)]
+        : "No anchors available.";
     }
-  }
 
-  // Live Updates
-  const updatesContainer = collection(db, "liveUpdates");
-  const q = query(updatesContainer, orderBy("timestamp", "desc"));
-  const liveFeed = document.getElementById("live-feed");
-
-  onSnapshot(q, snapshot => {
-    liveFeed.innerHTML = "";
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      const div = document.createElement("div");
-      div.className = "p-4 bg-gray-100 rounded shadow text-left";
-      div.innerHTML = `<strong>${new Date(data.timestamp.toDate()).toLocaleTimeString()}</strong><br>${data.text}`;
-      liveFeed.appendChild(div);
+    // Live Updates
+    const updatesContainer = document.getElementById("updatesContainer");
+    const updatesQuery = query(collection(db, "liveUpdates"), orderBy("timestamp", "desc"));
+    onSnapshot(updatesQuery, snapshot => {
+      updatesContainer.innerHTML = "";
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.className = "p-4 bg-gray-100 rounded shadow text-left";
+        div.innerHTML = `<strong>${new Date(data.timestamp.toDate()).toLocaleTimeString()}</strong><br>${data.text}`;
+        updatesContainer.appendChild(div);
+      });
     });
-  });
-</script>
+  </script>
 
+  <!-- Mobile Menu Toggle -->
+  <script>
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      mobileMenu.classList.toggle("hidden");
+    });
+  </script>
 
   <!-- Footer -->
   <footer class="bg-white shadow-inner mt-12">
