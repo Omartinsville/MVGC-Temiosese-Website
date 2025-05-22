@@ -1,13 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3-Day Program Schedule | Mountain of Victory Gospel Church Temi O Sese Alagbede</title>
+  <title>Church Program & Booking | Mountain of Victory Gospel Church</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script>
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    }
+    window.onload = function () {
+      if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    }
+  </script>
+  <style>
+    .dark body {
+      background-color: #1a202c;
+      color: #edf2f7;
+    }
+    .dark .bg-white {
+      background-color: #2d3748;
+    }
+    .dark .text-gray-900 {
+      color: #f7fafc;
+    }
+    .dark .text-gray-700 {
+      color: #e2e8f0;
+    }
+    .dark input,
+    .dark textarea,
+    .dark select {
+      background-color: #4a5568;
+      color: #edf2f7;
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
 
+<body class="bg-gray-50 text-gray-800 font-sans">
+  <!-- Header -->
   <header class="bg-blue-800 text-white p-6 shadow">
     <div class="max-w-6xl mx-auto">
       <h1 class="text-3xl font-bold">3-Day Power Packed Program Schedule</h1>
@@ -15,6 +49,7 @@
     </div>
   </header>
 
+  <!-- Program Section -->
   <main class="max-w-6xl mx-auto px-4 py-10">
     <section class="text-center mb-8">
       <p class="text-lg mb-2">Explore our 3-day journey of power, deliverance, and divine restoration.</p>
@@ -24,13 +59,12 @@
       </div>
     </section>
 
-    <!-- Program Grid -->
     <div class="grid md:grid-cols-3 gap-6">
       <!-- Day 1 -->
       <div class="bg-white p-6 rounded-lg shadow">
         <h2 class="text-xl font-bold text-blue-700 mb-2">Day 1: May 21</h2>
         <p class="text-gray-700 mb-2"><strong>Theme:</strong> Breaking the Yoke of Delay</p>
-        <img src="C:\Users\PREDATOR\Desktop\MVGC-website\images\Pasto Akin Akindele.jpg" alt="Pastor Akin Akindele" class="w-32 h-32 rounded-full mx-auto my-4 shadow">
+        <img src="/images/Pasto Akin Akindele.jpg" alt="Pastor Akin Akindele" class="w-32 h-32 rounded-full mx-auto my-4 shadow">
         <p class="text-center text-gray-600 font-semibold">Speaker: Pastor Akin Akindele</p>
         <ul class="mt-4 text-sm text-gray-700">
           <li>⏰ 5:00 PM – Opening Prayer & Worship</li>
@@ -44,7 +78,7 @@
       <div class="bg-white p-6 rounded-lg shadow">
         <h2 class="text-xl font-bold text-blue-700 mb-2">Day 2: May 22</h2>
         <p class="text-gray-700 mb-2"><strong>Theme:</strong> Power to Possess Your Possession</p>
-        <img src="C:\Users\PREDATOR\Desktop\MVGC-website\images\James Janet.jpg" alt="Evangelist Ruth Adegbite" class="w-32 h-32 rounded-full mx-auto my-4 shadow">
+        <img src="/images/James Janet.jpg" alt="Evangelist Janet James" class="w-32 h-32 rounded-full mx-auto my-4 shadow">
         <p class="text-center text-gray-600 font-semibold">Speaker: Evangelist Janet James</p>
         <ul class="mt-4 text-sm text-gray-700">
           <li>⏰ 5:00 PM – Praise & Worship</li>
@@ -58,7 +92,7 @@
       <div class="bg-white p-6 rounded-lg shadow">
         <h2 class="text-xl font-bold text-blue-700 mb-2">Day 3: May 23/24</h2>
         <p class="text-gray-700 mb-2"><strong>Theme:</strong> The God of Restoration</p>
-        <img src="C:\Users\PREDATOR\Desktop\MVGC-website\images\WhatsApp Image 2025-04-13 at 10.56.46_e90fd8f8.jpg" alt="Apostle Moses Ishola" class="w-32 h-32 rounded-full mx-auto my-4 shadow">
+        <img src="/images/WhatsApp Image 2025-04-13 at 10.56.46_e90fd8f8.jpg" alt="Apostle Moses Ishola" class="w-32 h-32 rounded-full mx-auto my-4 shadow">
         <p class="text-center text-gray-600 font-semibold">Speaker: Apostle Moses Ishola</p>
         <ul class="mt-4 text-sm text-gray-700">
           <li>⏰ 11:00 PM – Vigil Begins</li>
@@ -70,9 +104,79 @@
     </div>
   </main>
 
-  <footer class="bg-blue-800 text-white text-center p-4 mt-10">
-    <p>&copy; 2025 Mountain of Victory Gospel Church – Temi O Sese Alagbede, Ibadan. All rights reserved.</p>
-  </footer>
+  <!-- Weekly Schedule & Booking Form -->
+  <nav class="bg-white dark:bg-gray-900 shadow p-4 flex justify-between items-center">
+    <div class="text-2xl font-bold text-gray-900 dark:text-white">Church Schedule</div>
+    <button onclick="toggleDarkMode()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+      Toggle Dark Mode
+    </button>
+  </nav>
 
+  <section class="py-12 px-4 bg-gray-100 dark:bg-gray-800">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">Weekly Service Schedule</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700 dark:text-gray-300">
+        <div>
+          <h3 class="font-semibold text-xl">Sunday</h3>
+          <ul class="list-disc ml-5">
+            <li>Morning Worship – 9:00 AM</li>
+            <li>Youth Service – 11:30 AM</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold text-xl">Wednesday</h3>
+          <ul class="list-disc ml-5">
+            <li>Bible Study – 6:00 PM</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold text-xl">Friday</h3>
+          <ul class="list-disc ml-5">
+            <li>Prayer Meeting – 7:00 PM</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold text-xl">Saturday</h3>
+          <ul class="list-disc ml-5">
+            <li>Leadership Video Chat – 5:00 PM</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 px-4 bg-white dark:bg-gray-900">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">Book a Live Video Chat</h2>
+      <form id="bookingForm" class="space-y-6">
+        <div>
+          <label class="block text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
+          <input type="text" name="name" required class="w-full px-4 py-2 border rounded dark:bg-gray-700 dark:border-gray-600" />
+        </div>
+        <div>
+          <label class="block text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
+          <input type="email" name="email" required class="w-full px-4 py-2 border rounded dark:bg-gray-700 dark:border-gray-600" />
+        </div>
+        <div>
+          <label class="block text-gray-700 dark:text-gray-300 mb-1">Preferred Date</label>
+          <input type="date" name="date" required class="w-full px-4 py-2 border rounded dark:bg-gray-700 dark:border-gray-600" />
+        </div>
+        <div>
+          <label class="block text-gray-700 dark:text-gray-300 mb-1">Preferred Time</label>
+          <input type="time" name="time" required class="w-full px-4 py-2 border rounded dark:bg-gray-700 dark:border-gray-600" />
+        </div>
+        <div>
+          <label class="block text-gray-700 dark:text-gray-300 mb-1">Message</label>
+          <textarea name="message" rows="4" class="w-full px-4 py-2 border rounded dark:bg-gray-700 dark:border-gray-600"></textarea>
+        </div>
+        <button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded hover:bg-blue-800">Submit Booking</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-200 text-center py-6">
+    <p>&copy; 2025 Mountain of Victory Gospel Church. All rights reserved.</p>
+  </footer>
 </body>
 </html>
