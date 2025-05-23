@@ -83,4 +83,103 @@
     </div>
 
     <div class="mt-8 space-x-4">
-      <a href="schedule.html" class="inline-block bg-white text-blue-700 border border-blue-700 px-4 py-2 rounded hover:bg-bl
+      <a href="schedule.html" class="inline-block bg-white text-blue-700 border border-blue-700 px-4 py-2 rounded hover:bg-blue-50 font-semibold">View Full Schedule</a>
+      <a href="registration.html" class="inline-block bg-blue-700 text-white px-6 py-2 rounded hover:bg-blue-800 font-semibold">Register Now</a>
+    </div>
+  </section>
+
+  <!-- Live Audio Podcast -->
+<!-- Live Audio Podcast Placeholder -->
+<section class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-md text-center">
+  <h2 class="text-2xl font-bold text-blue-700 mb-4">🎧 Live Audio Podcast - Day 3 Session</h2>
+  <div class="bg-gray-100 border border-gray-300 p-6 rounded-lg">
+    <p class="text-gray-700">Live audio streaming will be available here during the event.</p>
+    <p class="text-sm text-gray-500 mt-2">Please check back on May 23rd for the live message from Prophetess E. Ishola.</p>
+  </div>
+</section>
+
+  <!-- Live Updates -->
+  <div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
+    <h2 class="text-2xl font-bold mb-4 text-center text-blue-700">📢 Live Updates</h2>
+    <div id="updatesContainer" class="space-y-4"></div>
+  </div>
+
+  <!-- Countdown Script -->
+  <script>
+    const countdownDate = new Date("May 21, 2025 17:00:00").getTime();
+    const updateCountdown = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+      if (distance < 0) {
+        clearInterval(updateCountdown);
+        document.getElementById("countdown").innerHTML = "The Program Has Started!";
+        return;
+      }
+      document.getElementById("days").textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
+      document.getElementById("hours").textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+      document.getElementById("minutes").textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+      document.getElementById("seconds").textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+    }, 1000);
+  </script>
+
+  <!-- Firebase Logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, doc, getDoc, getDocs, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA-b8o07OzvAp-WK50m2N6c47E7DknOakQ",
+      authDomain: "temiosesealagbede.firebaseapp.com",
+      projectId: "temiosesealagbede",
+      storageBucket: "temiosesealagbede.appspot.com",
+      messagingSenderId: "105174914045",
+      appId: "1:105174914045:web:5362ab4a7699b9eb02bf94",
+      measurementId: "G-F4M4J2QXB4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Daily Anchor
+    const today = new Date().toISOString().split('T')[0];
+    const anchorTextEl = document.getElementById('anchor-text');
+
+    const anchorDoc = await getDoc(doc(db, "dailyAnchors", today));
+    if (anchorDoc.exists()) {
+      anchorTextEl.textContent = "... " + anchorDoc.data().text;
+    } else {
+      const snapshot = await getDocs(collection(db, "dailyAnchors"));
+      const anchors = snapshot.docs.map(doc => doc.data().text);
+      anchorTextEl.textContent = anchors.length
+        ? "[From Archive] " + anchors[Math.floor(Math.random() * anchors.length)]
+        : "No anchors available.";
+    }
+
+    // Live Updates
+    const updatesContainer = document.getElementById("updatesContainer");
+    const updatesQuery = query(collection(db, "liveUpdates"), orderBy("timestamp", "desc"));
+    onSnapshot(updatesQuery, snapshot => {
+      updatesContainer.innerHTML = "";
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.className = "p-4 bg-gray-100 rounded shadow text-left";
+        div.innerHTML = `<strong>${new Date(data.timestamp.toDate()).toLocaleTimeString()}</strong><br>${data.text}`;
+        updatesContainer.appendChild(div);
+      });
+    });
+  </script>
+
+  <!-- Mobile Menu Toggle -->
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+
+</body>
+</html>
