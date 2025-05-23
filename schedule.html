@@ -200,9 +200,11 @@
         </div>
         <button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded hover:bg-blue-800">Submit Booking</button>
       </form>
-      <script>
-  document.getElementById("bookingForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
+
+      
+    <script>
+    document.getElementById("bookingForm").addEventListener("submit", async function(e) {
+     e.preventDefault();
 
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
@@ -210,27 +212,30 @@
     const time = document.getElementById("time").value;
     const officer = document.getElementById("officer").value;
     const message = document.getElementById("message").value;
-    const submitBtn = document.querySelector("button[type='submit']")
+      
+    const submitBtn = this.querySelector("button[type='submit']")
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting...";
 
     try {
-      await firebase.firestore().collection("bookings").add({
+     const docRef = await firebase.firestore().collection("bookings").add({
         name,
         email,
         date,
         time,
+       officer,
+       message,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
 
-      alert("Booking submitted successfully!");
-      this.reset();
+      window.location.href = '/room?bookingId=${docRef.id}';
     } catch (error) {
       alert("Error submitting booking: " + error.message);
-    }
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Booking";
   });
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Submit Booking";
+        
 </script>
 
     </div>
