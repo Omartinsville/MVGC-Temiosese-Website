@@ -15,15 +15,26 @@ const transporter = nodemailer.createTransport({
 exports.sendBookingEmail = functions.firestore
   .document('bookings/{bookingId}')
   .onCreate(async (snap, context) => {
-    const booking = snap.data();
+    const data = snap.data();
+    const email = data.email;
+    const name = data.name;
+    const bookingId = context.params.bookingId;
+    const meetingURL = `https://meet.jit.si/MOVGC_${bookingId}`;
 
     const mailOptions = {
       from: 'temiosesemvgc@gmail.com',
       to: booking.email,
       subject: 'Booking Confirmation',
-      html: `<p>Hi ${booking.name},</p>
-             <p>Your booking for a live chat on <strong>${booking.date}</strong> at <strong>${booking.time}</strong> has been confirmed.</p>
-             <p>Thank you!</p>`
+      html: `  
+      <p>Dear ${name},</p>
+        <p>Thank you for booking a session. Your meeting is scheduled as follows:</p>
+        <ul>
+          <li><strong>Date:</strong> ${data.date}</li>
+          <li><strong>Time:</strong> ${data.time}</li>
+          <li><strong>Officer:</strong> ${data.officer}</li>
+        </ul>
+        <p><a href="${meetingURL}">Click here to join your meeting</a></p>
+        <p>God bless you!</p>
     };
 
     try {
